@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,13 +24,13 @@ import android.widget.Toast;
  */
 
 public class LockScreenService extends Service {
-
     private LinearLayout linearLayout;
     private WindowManager.LayoutParams layoutParams;
     private WindowManager windowManager;
 
     private final String tsaPassword = "1234";
     private final String normalPassword = "1111";
+    private Integer quickEspaceCounter = 0;
 
     BroadcastReceiver screenReceiver = new BroadcastReceiver() {
         @Override
@@ -58,6 +59,7 @@ public class LockScreenService extends Service {
 
     private void init() {
         linearLayout = new LinearLayout(this);
+        final Context context = this;
         windowManager.addView(linearLayout, layoutParams);
         ((LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE)).inflate(R.layout.lock_screen, linearLayout);
         final EditText passwordField = (EditText) linearLayout.findViewById(R.id.password_field);
@@ -65,23 +67,28 @@ public class LockScreenService extends Service {
 
         passwordField.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
             public void afterTextChanged(Editable editable) {
                 if (editable.length() == 4) {
                     String input = editable.toString();
                     switch (input) {
                         case tsaPassword:
-                            editable.clear();
-                            resultMessage.setText("Fuck you TSA!");
+                            windowManager.removeView(linearLayout);
+                            linearLayout = new LinearLayout(context);
+                            windowManager.addView(linearLayout, layoutParams);
+                            ((LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE))
+                                    .inflate(R.layout.tsa_main_screen, linearLayout);
+                            setIconActions();
+
+                            linearLayout.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    quickEspaceCounter++;
+                                    if (quickEspaceCounter == 10) {
+                                        windowManager.removeView(linearLayout);
+                                    }
+                                }
+                            });
+
                             break;
                         case normalPassword:
                             windowManager.removeView(linearLayout);
@@ -94,6 +101,28 @@ public class LockScreenService extends Service {
                     }
                 }
             }
+
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+        });
+    }
+
+    private void setIconActions() {
+        final ImageView emailIcon = (ImageView) linearLayout.findViewById(R.id.email_icon);
+//        final ImageView phoneIcon = (ImageView) linearLayout.findViewById(R.id.phone_icon);
+//        final ImageView contactsIcon = (ImageView) linearLayout.findViewById(R.id.contacts_icon);
+//        final ImageView calendarIcon = (ImageView) linearLayout.findViewById(R.id.calendar_icon);
+
+        emailIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(linearLayout.getContext(), "Email", Toast.LENGTH_LONG).show();
+            }
         });
     }
 
@@ -102,7 +131,6 @@ public class LockScreenService extends Service {
     public IBinder onBind(Intent intent) {
         return null;
     }
-
 
     @Override
     public void onDestroy() {
