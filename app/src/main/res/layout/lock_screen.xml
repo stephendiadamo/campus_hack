@@ -35,15 +35,6 @@
         android:padding="5dp"
         android:textAlignment="center" />
 
-
-    <GridLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        
-    </GridLayout>
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -86,7 +77,6 @@
                 android:textSize="35sp" />
 
         </LinearLayout>
-
 
 
         <LinearLayout
@@ -172,9 +162,9 @@
 
             <TextView
                 android:id="@+id/number_nine"
-                android:layout_marginStart="45dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="45dp"
                 android:padding="10dp"
                 android:text="9"
                 android:textColor="#fff"
