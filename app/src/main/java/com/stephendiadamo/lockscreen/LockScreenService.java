@@ -16,10 +16,15 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.stephendiadamo.lockscreen.data_objects.Person;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * Created by stephendiadamo on 2017-04-27.
@@ -80,6 +85,7 @@ public class LockScreenService extends Service {
         TextView ok = (TextView) linearLayout.findViewById(R.id.ok);
 
         ArrayList<TextView> numbers = new ArrayList<>();
+
         numbers.add(zero);
         numbers.add(one);
         numbers.add(two);
@@ -118,6 +124,7 @@ public class LockScreenService extends Service {
                         ((LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE))
                                 .inflate(R.layout.tsa_main_screen, linearLayout);
                         setIconActions();
+
                         linearLayout.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -150,8 +157,27 @@ public class LockScreenService extends Service {
         });
     }
 
+
     private void setIconActions() {
 
+        ImageView contacts = (ImageView) linearLayout.findViewById(R.id.contacts_icon);
+        contacts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                windowManager.removeView(linearLayout);
+                linearLayout = new LinearLayout(view.getContext());
+                windowManager.addView(linearLayout, layoutParams);
+                ((LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE))
+                        .inflate(R.layout.contacts, linearLayout);
+
+                PersonOperations peopleOps = new PersonOperations(linearLayout.getContext());
+                ArrayList<Person> people = peopleOps.getAllPeople();
+
+                ContactsAdapter contactsAdapter = new ContactsAdapter(linearLayout.getContext(), people);
+                ListView list = (ListView) linearLayout.findViewById(R.id.contacts_listview);
+                list.setAdapter(contactsAdapter);
+            }
+        });
     }
 
     @Nullable

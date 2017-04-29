@@ -2,15 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000">
+    android:background="@drawable/bg3">
 
-
-    <TextView
-        android:id="@+id/tsa_clock"
+    <TextClock
+        android:id="@+id/clock"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:text="15:30"
+        android:format12Hour="@null"
+        android:format24Hour="kk:mm"
         android:textAlignment="center"
         android:textColor="#fff"
         android:textSize="85sp" />
@@ -18,8 +17,8 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tsa_clock"
-        android:text="Saturday, April 29"
+        android:layout_below="@id/clock"
+        android:text="Sunday, April 30"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textColor="#fff"
@@ -117,8 +116,6 @@
             android:layout_margin="10dp"
             android:contentDescription="@string/email"
             android:src="@drawable/phone7" />
-
-
     </LinearLayout>
 
 
