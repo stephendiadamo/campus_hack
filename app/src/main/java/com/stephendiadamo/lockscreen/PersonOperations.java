@@ -17,8 +17,6 @@ import com.stephendiadamo.lockscreen.database.DataBaseHelper;
 import java.util.ArrayList;
 
 public class PersonOperations {
-
-
     private final String[] BOOK_TABLE_COLUMNS = {
             DataBaseHelper.KEY_ID,
             DataBaseHelper.FIRST_NAME,
@@ -54,7 +52,7 @@ public class PersonOperations {
         ;
     }
 
-    public ArrayList<Person> getAllBooks() {
+    public ArrayList<Person> getAllPeople() {
         ArrayList<Person> people = new ArrayList<>();
         db = dbHelper.getReadableDatabase();
         String query = String.format("SELECT * FROM %s",
