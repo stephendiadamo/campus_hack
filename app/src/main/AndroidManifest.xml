@@ -20,6 +20,9 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".FakeDataInput" />
+
+
         <service android:name=".LockScreenService" />
         <receiver android:name=".BootReceiver">
             <intent-filter>
