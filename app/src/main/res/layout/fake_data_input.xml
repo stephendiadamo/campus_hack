@@ -22,4 +22,42 @@
         android:layout_height="wrap_content"
         android:inputType="text" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:labelFor="@+id/fake_data_first_name"
+        android:text="@string/email" />
+
+    <EditText
+        android:id="@+id/fake_data_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:labelFor="@+id/fake_data_first_name"
+        android:text="@string/phoneNumber" />
+
+    <EditText
+        android:id="@+id/fake_data_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text" />
+
+    <TextView
+        android:id="@+id/save_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
+        android:background="?attr/selectableItemBackground"
+        android:padding="10dp"
+        android:text="@string/save_button"
+        android:textSize="20sp" />
+
 </LinearLayout>

@@ -48,6 +48,46 @@
         android:layout_gravity="center"
         android:background="#c0c0c0" />
 
+
+    <TextView
+        android:id="@+id/customize_fake"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
+        android:background="?attr/selectableItemBackground"
+        android:padding="10dp"
+        android:text="@string/app_select"
+        android:textSize="20sp" />
+
+
+    <View
+        android:layout_width="350dp"
+        android:layout_height="1dp"
+        android:layout_gravity="center"
+        android:background="#c0c0c0" />
+
+
+    <TextView
+        android:id="@+id/setup_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
+        android:background="?attr/selectableItemBackground"
+        android:padding="10dp"
+        android:text="@string/setup_button"
+        android:textSize="20sp" />
+
+    <View
+        android:layout_width="350dp"
+        android:layout_height="1dp"
+        android:layout_gravity="center"
+        android:background="#c0c0c0" />
+
+
     <TextView
         android:id="@+id/settings_start_fake_lock"
         android:layout_width="match_parent"
@@ -59,6 +99,7 @@
         android:padding="10dp"
         android:text="@string/start_fake_lock"
         android:textSize="20sp" />
+
 
     <View
         android:layout_width="350dp"
@@ -78,10 +119,5 @@
         android:text="@string/stop_fake_lock"
         android:textSize="20sp" />
 
-    <View
-        android:layout_width="350dp"
-        android:layout_height="1dp"
-        android:layout_gravity="center"
-        android:background="#c0c0c0" />
 
 </LinearLayout>
