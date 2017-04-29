@@ -8,6 +8,10 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.stephendiadamo.lockscreen.data_objects.Person;
+
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -20,6 +24,12 @@ public class MainActivity extends AppCompatActivity {
         TextView fakeDataInput = (TextView) findViewById(R.id.settings_fake_data_input);
         final Intent fakeLock = new Intent(this, LockScreenService.class);
         final Intent fakeDataInputIntent = new Intent(this, FakeDataInput.class);
+
+        FakeDataGenerator f = new FakeDataGenerator();
+        ArrayList<Person> people = new ArrayList<>();
+        Person p = new Person("1", "2", "3", "4", "5", "6", "7");
+        people.add(p);
+        f.generatePeople(people);
 
         startFakeLock.setOnClickListener(new View.OnClickListener() {
             @Override
