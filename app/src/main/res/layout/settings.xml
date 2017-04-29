@@ -48,7 +48,6 @@
         android:layout_gravity="center"
         android:background="#c0c0c0" />
 
-
     <TextView
         android:id="@+id/customize_fake"
         android:layout_width="match_parent"
@@ -60,7 +59,6 @@
         android:padding="10dp"
         android:text="@string/app_select"
         android:textSize="20sp" />
-
 
     <View
         android:layout_width="350dp"
