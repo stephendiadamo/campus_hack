@@ -1,5 +1,9 @@
 package com.stephendiadamo.lockscreen.data_objects;
 
+/**
+ * Created by stephendiadamo on 2017-04-28.
+ */
+
 public class Person {
     public String first_name;
     public String last_name;

@@ -3,7 +3,11 @@
     <string name="please_enter_your_password">Enter PIN</string>
     <string name="email">E-mail</string>
     <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
     <string name="phoneNumber">Phone Number</string>
+    <string name="companyName">Company Name</string>
+    <string name="birthDate">Birth Date</string>
+    <string name="addressName">Address</string>
     <string name="bit_of_truth">To generate convincing fake data, we use a bit of real information. A better lie is one mixed with a bit of truth :D</string>
     <string name="fake_data_information_input">Fake Data Information Input</string>
     <string name="lockout">Lockout</string>
