@@ -1,23 +1,80 @@
 package com.stephendiadamo.lockscreen;
 
-import com.stephendiadamo.lockscreen.data_objects.Email;
+import com.stephendiadamo.lockscreen.data_objects.Email_incoming;
+import com.stephendiadamo.lockscreen.data_objects.Person;
 
 import java.util.ArrayList;
-
-/**
- * Created by stephendiadamo on 2017-04-28.
- */
+import java.util.Random;
 
 public class FakeDataGenerator {
+    String[] firstName = {"Aaron", "Adam", "Adrian", "Aiden", "Alex", "Alexander", "Andrew", "Angel", "Anthony", "Austin", "Ayden", "Benjamin", "Bentley", "Blake", "Brandon", "Brayden", "Brody", "Bryson", "Caleb", "Cameron", "Carlos", "Carson", "Carter", "Charles", "Chase", "Christian", "Christopher", "Colton", "Connor", "Cooper", "Damian", "Daniel", "David", "Dominic", "Dylan", "Easton", "Eli", "Elijah", "Ethan", "Evan", "Gabriel", "Gavin", "Grayson", "Henry", "Hudson", "Hunter", "Ian", "Isaac", "Isaiah", "Jace", "Jack", "Jackson", "Jacob", "James", "Jason", "Jaxon", "Jayden", "Jeremiah", "John", "Jonathan", "Jordan", "Jose", "Joseph", "Joshua", "Josiah", "Juan", "Julian", "Justin", "Kayden", "Kevin", "Landon", "Levi", "Liam", "Logan", "Lucas", "Luis", "Luke", "Mason", "Matthew", "Michael", "Nathan", "Nathaniel", "Nicholas", "Noah", "Nolan", "Oliver", "Owen", "Parker", "Robert", "Ryan", "Ryder", "Samuel", "Sebastian", "Thomas", "Tristan", "Tyler", "William", "Wyatt", "Xavier", "Zachary", "Aaliyah", "Abigail", "Addison", "Alexa", "Alexandra", "Alexis", "Allison", "Alyssa", "Amelia", "Andrea", "Anna", "Annabelle", "Aria", "Ariana", "Arianna", "Ashley", "Aubree", "Aubrey", "Audrey", "Autumn", "Ava", "Avery", "Bailey", "Bella", "Brianna", "Brooklyn", "Camila", "Caroline", "Charlotte", "Chloe", "Claire", "Elizabeth", "Ella", "Ellie", "Emily", "Emma", "Eva", "Evelyn", "Faith", "Gabriella", "Genesis", "Gianna", "Grace", "Hailey", "Hannah", "Harper", "Isabella", "Jasmine", "Jocelyn", "Julia", "Katherine", "Kayla", "Kaylee", "Kennedy", "Khloe", "Kimberly", "Kylie", "Lauren", "Layla", "Leah", "Lillian", "Lily", "London", "Lucy", "Lydia", "Mackenzie", "Madeline", "Madelyn", "Madison", "Makayla", "Maya", "Melanie", "Mia", "Molly", "Morgan", "Naomi", "Natalie", "Nevaeh", "Olivia", "Peyton", "Piper", "Reagan", "Riley", "Samantha", "Sarah", "Savannah", "Scarlett", "Serenity", "Skylar", "Sofia", "Sophia", "Sophie", "Stella", "Sydney", "Taylor", "Trinity", "Victoria", "Violet", "Zoe", "Zoey"};
+    String[] lastName = {"Abbott", "Acevedo", "Acosta", "Adams", "Adkins", "Aguilar", "Aguirre", "Albert", "Alexander", "Alford", "Allen", "Allison", "Alston", "Alvarado", "Alvarez", "Anderson", "Andrews", "Anthony", "Armstrong", "Arnold", "Ashley", "Atkins", "Atkinson", "Austin", "Avery", "Avila", "Ayala", "Ayers", "Bailey", "Baird", "Baker", "Baldwin", "Ball", "Ballard", "Banks", "Barber", "Barker", "Barlow", "Barnes", "Barnett", "Barr", "Barrera", "Barrett", "Barron", "Barry", "Bartlett", "Barton", "Bass", "Bates", "Battle", "Bauer", "Baxter", "Beach", "Bean", "Beard", "Beasley", "Beck", "Becker", "Bell", "Bender", "Benjamin", "Bennett", "Benson", "Bentley", "Benton", "Berg", "Berger", "Bernard", "Berry", "Best", "Bird", "Bishop", "Black", "Blackburn", "Blackwell", "Blair", "Blake", "Blanchard", "Blankenship", "Blevins", "Bolton", "Bond", "Bonner", "Booker", "Boone", "Booth", "Bowen", "Bowers", "Bowman", "Boyd", "Boyer", "Boyle", "Bradford", "Bradley", "Bradshaw", "Brady", "Branch", "Bray", "Brennan", "Brewer", "Bridges", "Briggs", "Bright", "Britt", "Brock", "Brooks", "Brown", "Browning", "Bruce", "Bryan", "Bryant", "Buchanan", "Buck", "Buckley", "Buckner", "Bullock", "Burch", "Burgess", "Burke", "Burks", "Burnett", "Burns", "Burris", "Burt", "Burton", "Bush", "Butler", "Byers", "Byrd", "Cabrera", "Cain", "Calderon", "Caldwell", "Calhoun", "Callahan", "Camacho", "Cameron", "Campbell", "Campos", "Cannon", "Cantrell", "Cantu", "Cardenas", "Carey", "Carlson", "Carney", "Carpenter", "Carr", "Carrillo", "Carroll", "Carson", "Carter", "Carver", "Case", "Casey", "Cash", "Castaneda", "Castillo", "Castro", "Cervantes", "Chambers", "Chan", "Chandler", "Chaney", "Chang", "Chapman", "Charles", "Chase", "Chavez", "Chen", "Cherry", "Christensen", "Christian", "Church", "Clark", "Clarke", "Clay", "Clayton", "Clements", "Clemons", "Cleveland", "Cline", "Cobb", "Cochran", "Coffey", "Cohen", "Cole", "Coleman", "Collier", "Collins", "Colon", "Combs", "Compton", "Conley", "Conner", "Conrad", "Contreras", "Conway", "Cook", "Cooke", "Cooley", "Cooper", "Copeland", "Cortez", "Cote", "Cotton", "Cox", "Craft", "Craig", "Crane", "Crawford", "Crosby", "Cross", "Cruz", "Cummings", "Cunningham", "Curry", "Curtis", "Dale", "Dalton", "Daniel", "Daniels", "Daugherty", "Davenport", "David", "Davidson", "Davis", "Dawson", "Day", "Dean", "Decker", "Dejesus", "Delacruz", "Delaney", "Deleon", "Delgado", "Dennis", "Diaz", "Dickerson", "Dickson", "Dillard", "Dillon", "Dixon", "Dodson", "Dominguez", "Donaldson", "Donovan", "Dorsey", "Dotson", "Douglas", "Downs", "Doyle", "Drake", "Dudley", "Duffy", "Duke", "Duncan", "Dunlap", "Dunn", "Duran", "Durham", "Dyer", "Eaton", "Edwards", "Elliott", "Ellis", "Ellison", "Emerson", "England", "English", "Erickson", "Espinoza", "Estes", "Estrada", "Evans", "Everett", "Ewing", "Farley", "Farmer", "Farrell", "Faulkner", "Ferguson", "Fernandez", "Ferrell", "Fields", "Figueroa", "Finch", "Finley", "Fischer", "Fisher", "Fitzgerald", "Fitzpatrick", "Fleming", "Fletcher", "Flores", "Flowers", "Floyd", "Flynn", "Foley", "Forbes", "Ford", "Foreman", "Foster", "Fowler", "Fox", "Francis", "Franco", "Frank", "Franklin", "Franks", "Frazier", "Frederick", "Freeman", "French", "Frost", "Fry", "Frye", "Fuentes", "Fuller", "Fulton", "Gaines", "Gallagher", "Gallegos", "Galloway", "Gamble", "Garcia", "Gardner", "Garner", "Garrett", "Garrison", "Garza", "Gates", "Gay", "Gentry", "George", "Gibbs", "Gibson", "Gilbert", "Giles", "Gill", "Gillespie", "Gilliam", "Gilmore", "Glass", "Glenn", "Glover", "Goff", "Golden", "Gomez", "Gonzales", "Gonzalez", "Good", "Goodman", "Goodwin", "Gordon", "Gould", "Graham", "Grant", "Graves", "Gray", "Green", "Greene", "Greer", "Gregory", "Griffin", "Griffith", "Grimes", "Gross", "Guerra", "Guerrero", "Guthrie", "Gutierrez", "Guy", "Guzman", "Hahn", "Hale", "Haley", "Hall", "Hamilton", "Hammond", "Hampton", "Hancock", "Haney", "Hansen", "Hanson", "Hardin", "Harding", "Hardy", "Harmon", "Harper", "Harrell", "Harrington", "Harris", "Harrison", "Hart", "Hartman", "Harvey", "Hatfield", "Hawkins", "Hayden", "Hayes", "Haynes", "Hays", "Head", "Heath", "Hebert", "Henderson", "Hendricks", "Hendrix", "Henry", "Hensley", "Henson", "Herman", "Hernandez", "Herrera", "Herring", "Hess", "Hester", "Hewitt", "Hickman", "Hicks", "Higgins", "Hill", "Hines", "Hinton", "Hobbs", "Hodge", "Hodges", "Hoffman", "Hogan", "Holcomb", "Holden", "Holder", "Holland", "Holloway", "Holman", "Holmes", "Holt", "Hood", "Hooper", "Hoover", "Hopkins", "Hopper", "Horn", "Horne", "Horton", "House", "Houston", "Howard", "Howe", "Howell", "Hubbard", "Huber", "Hudson", "Huff", "Huffman", "Hughes", "Hull", "Humphrey", "Hunt", "Hunter", "Hurley", "Hurst", "Hutchinson", "Hyde", "Ingram", "Irwin", "Jackson", "Jacobs", "Jacobson", "James", "Jarvis", "Jefferson", "Jenkins", "Jennings", "Jensen", "Jimenez", "Johns", "Johnson", "Johnston", "Jones", "Jordan", "Joseph", "Joyce", "Joyner", "Juarez", "Justice", "Kane", "Kaufman", "Keith", "Keller", "Kelley", "Kelly", "Kemp", "Kennedy", "Kent", "Kerr", "Key", "Kidd", "Kim", "King", "Kinney", "Kirby", "Kirk", "Kirkland", "Klein", "Kline", "Knapp", "Knight", "Knowles", "Knox", "Koch", "Kramer", "Lamb", "Lambert", "Lancaster", "Landry", "Lane", "Lang", "Langley", "Lara", "Larsen", "Larson", "Lawrence", "Lawson", "Le", "Leach", "Leblanc", "Lee", "Leon", "Leonard", "Lester", "Levine", "Levy", "Lewis", "Lindsay", "Lindsey", "Little", "Livingston", "Lloyd", "Logan", "Long", "Lopez", "Lott", "Love", "Lowe", "Lowery", "Lucas", "Luna", "Lynch", "Lynn", "Lyons", "Macdonald", "Macias", "Mack", "Madden", "Maddox", "Maldonado", "Malone", "Mann", "Manning", "Marks", "Marquez", "Marsh", "Marshall", "Martin", "Martinez", "Mason", "Massey", "Mathews", "Mathis", "Matthews", "Maxwell", "May", "Mayer", "Maynard", "Mayo", "Mays", "Mcbride", "Mccall", "Mccarthy", "Mccarty", "Mcclain", "Mcclure", "Mcconnell", "Mccormick", "Mccoy", "Mccray", "Mccullough", "Mcdaniel", "Mcdonald", "Mcdowell", "Mcfadden", "Mcfarland", "Mcgee", "Mcgowan", "Mcguire", "Mcintosh", "Mcintyre", "Mckay", "Mckee", "Mckenzie", "Mckinney", "Mcknight", "Mclaughlin", "Mclean", "Mcleod", "Mcmahon", "Mcmillan", "Mcneil", "Mcpherson", "Meadows", "Medina", "Mejia", "Melendez", "Melton", "Mendez", "Mendoza", "Mercado", "Mercer", "Merrill", "Merritt", "Meyer", "Meyers", "Michael", "Middleton", "Miles", "Miller", "Mills", "Miranda", "Mitchell", "Molina", "Monroe", "Montgomery", "Montoya", "Moody", "Moon", "Mooney", "Moore", "Morales", "Moran", "Moreno", "Morgan", "Morin", "Morris", "Morrison", "Morrow", "Morse", "Morton", "Moses", "Mosley", "Moss", "Mueller", "Mullen", "Mullins", "Munoz", "Murphy", "Murray", "Myers", "Nash", "Navarro", "Neal", "Nelson", "Newman", "Newton", "Nguyen", "Nichols", "Nicholson", "Nielsen", "Nieves", "Nixon", "Noble", "Noel", "Nolan", "Norman", "Norris", "Norton", "Nunez", "Obrien", "Ochoa", "Oconnor", "Odom", "Odonnell", "Oliver", "Olsen", "Olson", "Oneal", "Oneil", "Oneill", "Orr", "Ortega", "Ortiz", "Osborn", "Osborne", "Owen", "Owens", "Pace", "Pacheco", "Padilla", "Page", "Palmer", "Park", "Parker", "Parks", "Parrish", "Parsons", "Pate", "Patel", "Patrick", "Patterson", "Patton", "Paul", "Payne", "Pearson", "Peck", "Pena", "Pennington", "Perez", "Perkins", "Perry", "Peters", "Petersen", "Peterson", "Petty", "Phelps", "Phillips", "Pickett", "Pierce", "Pittman", "Pitts", "Pollard", "Poole", "Pope", "Porter", "Potter", "Potts", "Powell", "Powers", "Pratt", "Preston", "Price", "Prince", "Pruitt", "Puckett", "Pugh", "Quinn", "Ramirez", "Ramos", "Ramsey", "Randall", "Randolph", "Rasmussen", "Ratliff", "Ray", "Raymond", "Reed", "Reese", "Reeves", "Reid", "Reilly", "Reyes", "Reynolds", "Rhodes", "Rice", "Rich", "Richard", "Richards", "Richardson", "Richmond", "Riddle", "Riggs", "Riley", "Rios", "Rivas", "Rivera", "Rivers", "Roach", "Robbins", "Roberson", "Roberts", "Robertson", "Robinson", "Robles", "Rocha", "Rodgers", "Rodriguez", "Rodriquez", "Rogers", "Rojas", "Rollins", "Roman", "Romero", "Rosa", "Rosales", "Rosario", "Rose", "Ross", "Roth", "Rowe", "Rowland", "Roy", "Ruiz", "Rush", "Russell", "Russo", "Rutledge", "Ryan", "Salas", "Salazar", "Salinas", "Sampson", "Sanchez", "Sanders", "Sandoval", "Sanford", "Santana", "Santiago", "Santos", "Sargent", "Saunders", "Savage", "Sawyer", "Schmidt", "Schneider", "Schroeder", "Schultz", "Schwartz", "Scott", "Sears", "Sellers", "Serrano", "Sexton", "Shaffer", "Shannon", "Sharp", "Sharpe", "Shaw", "Shelton", "Shepard", "Shepherd", "Sheppard", "Sherman", "Shields", "Short", "Silva", "Simmons", "Simon", "Simpson", "Sims", "Singleton", "Skinner", "Slater", "Sloan", "Small", "Smith", "Snider", "Snow", "Snyder", "Solis", "Solomon", "Sosa", "Soto", "Sparks", "Spears", "Spence", "Spencer", "Stafford", "Stanley", "Stanton", "Stark", "Steele", "Stein", "Stephens", "Stephenson", "Stevens", "Stevenson", "Stewart", "Stokes", "Stone", "Stout", "Strickland", "Strong", "Stuart", "Suarez", "Sullivan", "Summers", "Sutton", "Swanson", "Sweeney", "Sweet", "Sykes", "Talley", "Tanner", "Tate", "Taylor", "Terrell", "Terry", "Thomas", "Thompson", "Thornton", "Tillman", "Todd", "Torres", "Townsend", "Tran", "Travis", "Trevino", "Trujillo", "Tucker", "Turner", "Tyler", "Tyson", "Underwood", "Valdez", "Valencia", "Valentine", "Valenzuela", "Vance", "Vang", "Vargas", "Vasquez", "Vaughan", "Vaughn", "Vazquez", "Vega", "Velasquez", "Velazquez", "Velez", "Villarreal", "Vincent", "Vinson", "Wade", "Wagner", "Walker", "Wall", "Wallace", "Waller", "Walls", "Walsh", "Walter", "Walters", "Walton", "Ward", "Ware", "Warner", "Warren", "Washington", "Waters", "Watkins", "Watson", "Watts", "Weaver", "Webb", "Weber", "Webster", "Weeks", "Weiss", "Welch", "Wells", "West", "Wheeler", "Whitaker", "White", "Whitehead", "Whitfield", "Whitley", "Whitney", "Wiggins", "Wilcox", "Wilder", "Wiley", "Wilkerson", "Wilkins", "Wilkinson", "William", "Williams", "Williamson", "Willis", "Wilson", "Winters", "Wise", "Witt", "Wolf", "Wolfe", "Wong", "Wood", "Woodard", "Woods", "Woodward", "Wooten", "Workman", "Wright", "Wyatt", "Wynn", "Yang", "Yates", "York", "Young", "Zamora", "Zimmerman"};
+    String[] domain = {"com", "net", "org", "de"};
+    String[] emailDomain = {"@gmail.com", "@yahoo.com", "@live.com"};
+    String[] companyName = {"Alist", "Beans", "Klein", "Felics", "Adapt", "MemorTech", "Porta", "SuperMemo", "Nonos", "Vitae", "Woods", "Quisuc", "Quicker", "Interdem", "Morsem", "Datastore", "Linger", "Buapel", "Terson", "Gualas", "Yrsa", "Warst", "Erntogra", "Robutenia", "QuickLink", "Furba", "Hostes", "FlyHigh"};
+    String[] companySuffix = {"Associates", "Company", "Consulting", "Inc.", "Industries", "Limited", "LLC", "Ltd"};
+    String[] phoneCode = {"0151", "0152", "0155", "0157", "0159", "0160", "0162", "0163", "0170", "0171", "0172", "0173", "0174", "0175", "0176", "0177", "0178", "0179"};
+    String[] city = {"Berlin", "Hamburg", "Munich", "Cologne", "Frankfurt", "Essen", "Dortmund", "Stuttgart", "Dusseldorf", "Bremen", "Hanover"};
+    String[] street = {"Altstadtring", "Brienner Straße", "Dachauer Straße", "Drückebergergasse", "Frankfurter Ring", "Leopoldstrasse", "Ludwigstrasse", "Maximilianstraße", "Moosacher Straße", "Pelkovenstraße", "Prinzregentenstraße", "Richard-Wagner-Straße", "Schellingstraße", "Schleißheimer Straße", "Ungererstraße"};
+    String country = "Germany";
+    String text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
 
     public FakeDataGenerator() {
     }
 
-    public ArrayList<Email> generateFakeEmails() {
-        ArrayList<Email> emails = new ArrayList<>();
-        Email e = new Email("hey", "hey", "hey", "hey", "hey");
-        emails.add(e);
+    public ArrayList<Email_incoming> generateFakeEmails(ArrayList<Email_incoming> real_emails) {
+        ArrayList<Email_incoming> emails = new ArrayList<>();
+        for (int i = real_emails.size() - 1; i >= 0; i--) {
+            emails.add(real_emails.get(i));
+        }
+        for (int i = 10; i >= 0; i--) {
+            Random random = new Random();
+            int index_firstName_from = random.nextInt(firstName.length);
+            int index_lastName_from = random.nextInt(lastName.length);
+            int index_emailDomain_from = random.nextInt(emailDomain.length);
+            String firstName_from = firstName[index_firstName_from];
+            String lastName_from = lastName[index_lastName_from];
+            String emailDomain_from = emailDomain[index_emailDomain_from];
+            String fromName = firstName_from + lastName_from;
+            String fromEmail = firstName_from.substring(0, 1).toLowerCase() + lastName_from.toLowerCase() + emailDomain_from;
+            String from = fromName + ", '" + fromEmail + "'";
+            Email_incoming e = new Email_incoming("hey", from, "", "", "text");
+            emails.add(e);
+        }
         return emails;
     }
 
+    public ArrayList<Person> generatePeople(ArrayList<Person> real_people) {
+        ArrayList<Person> people = new ArrayList<>();
+        for (int i = real_people.size() - 1; i >= 0; i--) {
+            people.add(real_people.get(i));
+        }
+        for (int i = 10; i >= 0; i--) {
+            Random random = new Random();
+            int index_firstName = random.nextInt(firstName.length);
+            int index_lastName = random.nextInt(firstName.length);
+            int index_companyName = random.nextInt(companyName.length);
+            int index_companySuffix = random.nextInt(companySuffix.length);
+            int index_emailDomain = random.nextInt(emailDomain.length);
+            int index_street = random.nextInt(street.length);
+            int index_city = random.nextInt(city.length);
+            int index_phoneCode = random.nextInt(phoneCode.length);
+            String firstName_person = firstName[index_firstName];
+            String lastName_person = lastName[index_lastName];
+            String company_person = companyName[index_companyName] + companySuffix[index_companySuffix];
+            String email_person = firstName_person.substring(0, 1).toLowerCase() + lastName_person.toLowerCase() + emailDomain[index_emailDomain];
+            int streetNumber = 10 + random.nextInt(90);
+            int postalCode = 10000 + random.nextInt(90000);
+            String address_person = street[index_street] + " " + streetNumber + ", " + postalCode + " " + city[index_city] + ", " + country;
+            int dayOfBirth = 1 + random.nextInt((30 - 1) + 1);
+            int monthOfBirth = 1 + random.nextInt((12 - 1) + 1);
+            int yearOfBirth = 1970 + random.nextInt((1999 - 1970) + 1);
+            String dateOfBirth_person = dayOfBirth + "." + monthOfBirth + "." + yearOfBirth;
+            int phoneNumber = 1000000 + random.nextInt(9000000);
+            String phone_person = phoneCode[index_phoneCode] + phoneNumber;
+            Person person = new Person(firstName_person, lastName_person, company_person, email_person, phone_person, dateOfBirth_person, address_person);
+            people.add(person);
+        }
+        return people;
+    }
 }
