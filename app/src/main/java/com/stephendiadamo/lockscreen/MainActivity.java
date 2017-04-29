@@ -17,6 +17,9 @@ public class MainActivity extends AppCompatActivity {
 
         TextView startFakeLock = (TextView) findViewById(R.id.settings_start_fake_lock);
         TextView stopFakeLock = (TextView) findViewById(R.id.settings_stop_fake_lock);
+
+
+
         final Intent fakeLock = new Intent(this, LockScreenService.class);
 
         startFakeLock.setOnClickListener(new View.OnClickListener() {

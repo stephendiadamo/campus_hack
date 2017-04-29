@@ -19,6 +19,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 /**
  * Created by stephendiadamo on 2017-04-27.
  */
@@ -51,9 +53,7 @@ public class LockScreenService extends Service {
                 WindowManager.LayoutParams.MATCH_PARENT,
                 WindowManager.LayoutParams.MATCH_PARENT,
                 WindowManager.LayoutParams.TYPE_SYSTEM_ERROR,
-                WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN //draw on status bar
-                        | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
-                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION,// hiding the home screen button
+                WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD,
                 PixelFormat.TRANSLUCENT);
     }
 
@@ -62,68 +62,96 @@ public class LockScreenService extends Service {
         final Context context = this;
         windowManager.addView(linearLayout, layoutParams);
         ((LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE)).inflate(R.layout.lock_screen, linearLayout);
+
         final EditText passwordField = (EditText) linearLayout.findViewById(R.id.password_field);
-        final TextView resultMessage = (TextView) linearLayout.findViewById(R.id.result_message);
 
-        passwordField.addTextChangedListener(new TextWatcher() {
+        TextView one = (TextView) linearLayout.findViewById(R.id.number_one);
+        TextView two = (TextView) linearLayout.findViewById(R.id.number_two);
+        TextView three = (TextView) linearLayout.findViewById(R.id.number_three);
+        TextView four = (TextView) linearLayout.findViewById(R.id.number_four);
+        TextView five = (TextView) linearLayout.findViewById(R.id.number_five);
+        TextView six = (TextView) linearLayout.findViewById(R.id.number_six);
+        TextView seven = (TextView) linearLayout.findViewById(R.id.number_seven);
+        TextView eight = (TextView) linearLayout.findViewById(R.id.number_eight);
+        TextView nine = (TextView) linearLayout.findViewById(R.id.number_nine);
+        TextView zero = (TextView) linearLayout.findViewById(R.id.number_zero);
+
+        TextView remove = (TextView) linearLayout.findViewById(R.id.remove);
+        TextView ok = (TextView) linearLayout.findViewById(R.id.ok);
+
+        ArrayList<TextView> numbers = new ArrayList<>();
+        numbers.add(zero);
+        numbers.add(one);
+        numbers.add(two);
+        numbers.add(three);
+        numbers.add(four);
+        numbers.add(five);
+        numbers.add(six);
+        numbers.add(seven);
+        numbers.add(eight);
+        numbers.add(nine);
+
+        remove.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void afterTextChanged(Editable editable) {
-                if (editable.length() == 4) {
-                    String input = editable.toString();
-                    switch (input) {
-                        case tsaPassword:
-                            windowManager.removeView(linearLayout);
-                            linearLayout = new LinearLayout(context);
-                            windowManager.addView(linearLayout, layoutParams);
-                            ((LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE))
-                                    .inflate(R.layout.tsa_main_screen, linearLayout);
-                            setIconActions();
-
-                            linearLayout.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    quickEspaceCounter++;
-                                    if (quickEspaceCounter == 10) {
-                                        windowManager.removeView(linearLayout);
-                                    }
-                                }
-                            });
-
-                            break;
-                        case normalPassword:
-                            windowManager.removeView(linearLayout);
-                            linearLayout = null;
-                            break;
-                        default:
-                            resultMessage.setText("Wrong Password");
-                            editable.clear();
-                            break;
-                    }
+            public void onClick(View view) {
+                String password = passwordField.getText().toString();
+                if (password.length() > 0) {
+                    passwordField.setText(password.substring(0, password.length() - 1));
                 }
             }
+        });
 
+        for (int i = 0; i < 10; i++) {
+            addNumberToField(numbers.get(i), String.valueOf(i), passwordField);
+        }
+
+        ok.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            public void onClick(View view) {
+
+                String password = passwordField.getText().toString();
+                switch (password) {
+                    case tsaPassword:
+                        windowManager.removeView(linearLayout);
+                        linearLayout = new LinearLayout(context);
+                        windowManager.addView(linearLayout, layoutParams);
+                        ((LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE))
+                                .inflate(R.layout.tsa_main_screen, linearLayout);
+                        setIconActions();
+                        linearLayout.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                quickEspaceCounter++;
+                                if (quickEspaceCounter == 10) {
+                                    windowManager.removeView(linearLayout);
+                                }
+                            }
+                        });
+
+                        break;
+                    case normalPassword:
+                        windowManager.removeView(linearLayout);
+                        linearLayout = null;
+                        break;
+                    default:
+                        break;
+                }
+
             }
+        });
+    }
 
+    private void addNumberToField(TextView number, final String text, final EditText passwordField) {
+        number.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            public void onClick(View view) {
+                passwordField.append(text);
             }
         });
     }
 
     private void setIconActions() {
-        final ImageView emailIcon = (ImageView) linearLayout.findViewById(R.id.email_icon);
-//        final ImageView phoneIcon = (ImageView) linearLayout.findViewById(R.id.phone_icon);
-//        final ImageView contactsIcon = (ImageView) linearLayout.findViewById(R.id.contacts_icon);
-//        final ImageView calendarIcon = (ImageView) linearLayout.findViewById(R.id.calendar_icon);
 
-        emailIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(linearLayout.getContext(), "Email", Toast.LENGTH_LONG).show();
-            }
-        });
     }
 
     @Nullable
