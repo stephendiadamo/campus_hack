@@ -148,7 +148,6 @@ public class LockScreenService extends Service {
                     default:
                         break;
                 }
-
             }
         });
     }
@@ -162,46 +161,75 @@ public class LockScreenService extends Service {
         });
     }
 
-
     private void setIconActions() {
-
         ImageView contacts = (ImageView) linearLayout.findViewById(R.id.contacts_icon);
         contacts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                windowManager.removeView(linearLayout);
-                linearLayout = new LinearLayout(view.getContext());
-                layoutParams = new WindowManager.LayoutParams(
-                        WindowManager.LayoutParams.MATCH_PARENT,
-                        WindowManager.LayoutParams.MATCH_PARENT,
-                        WindowManager.LayoutParams.TYPE_SYSTEM_ERROR,
-                        WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD |
-                                WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN,
-                        PixelFormat.TRANSLUCENT);
+                setContactsPage(view);
+            }
+        });
+    }
 
-                windowManager.addView(linearLayout, layoutParams);
-                ((LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE))
-                        .inflate(R.layout.contacts, linearLayout);
+    public void setContactsPage(View view) {
+        windowManager.removeView(linearLayout);
+        linearLayout = new LinearLayout(view.getContext());
+        layoutParams = new WindowManager.LayoutParams(
+                WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.TYPE_SYSTEM_ERROR,
+                WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD |
+                        WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN,
+                PixelFormat.TRANSLUCENT);
 
-                PersonOperations peopleOps = new PersonOperations(linearLayout.getContext());
-                ArrayList<Person> people = peopleOps.getAllPeople();
+        windowManager.addView(linearLayout, layoutParams);
+        ((LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE))
+                .inflate(R.layout.contacts, linearLayout);
 
-                FakeDataGenerator fakeDataGenerator = new FakeDataGenerator();
-                ArrayList<Person> morePeople = fakeDataGenerator.generatePeople(people);
+        PersonOperations peopleOps = new PersonOperations(linearLayout.getContext());
+        ArrayList<Person> people = peopleOps.getAllPeople();
 
-                ContactsAdapter contactsAdapter = new ContactsAdapter(linearLayout.getContext(), morePeople);
-                ListView list = (ListView) linearLayout.findViewById(R.id.contacts_listview);
-                list.setAdapter(contactsAdapter);
+        FakeDataGenerator fakeDataGenerator = new FakeDataGenerator();
+        final ArrayList<Person> morePeople = fakeDataGenerator.generatePeople(people);
 
-                list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        quickEspaceCounter++;
-                        if (quickEspaceCounter == 10) {
-                            windowManager.removeView(linearLayout);
-                        }
-                    }
-                });
+        ContactsAdapter contactsAdapter = new ContactsAdapter(linearLayout.getContext(), morePeople);
+        ListView list = (ListView) linearLayout.findViewById(R.id.contacts_listview);
+        list.setAdapter(contactsAdapter);
+
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                quickEspaceCounter++;
+                if (quickEspaceCounter == 10) {
+                    windowManager.removeView(linearLayout);
+                }
+                Person selectedPerson = morePeople.get(i);
+                setContactPage(view, selectedPerson);
+            }
+        });
+    }
+
+    public void setContactPage(View view, Person person) {
+        linearLayout = new LinearLayout(view.getContext());
+        windowManager.addView(linearLayout, layoutParams);
+        ((LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE))
+                .inflate(R.layout.contact_details, linearLayout);
+
+        TextView name = (TextView) linearLayout.findViewById(R.id.contact_details_header);
+        TextView phoneNumber = (TextView) linearLayout.findViewById(R.id.contact_phone_number);
+        TextView email = (TextView) linearLayout.findViewById(R.id.contact_email_address);
+        TextView address = (TextView) linearLayout.findViewById(R.id.contact_address);
+        ImageView backButton = (ImageView) linearLayout.findViewById(R.id.contact_back_arrow);
+
+        name.setText(person.first_name);
+        phoneNumber.setText(person.phone);
+        email.setText(person.email);
+        address.setText(person.address);
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setContactsPage(view);
             }
         });
     }

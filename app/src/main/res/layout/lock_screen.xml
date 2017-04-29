@@ -53,6 +53,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="45dp"
                 android:padding="10dp"
+                android:paddingEnd="15dp"
+                android:paddingStart="15dp"
                 android:text="1"
                 android:textColor="#fff"
                 android:textSize="35sp" />
@@ -63,6 +65,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="45dp"
                 android:padding="10dp"
+                android:paddingEnd="15dp"
+                android:paddingStart="15dp"
                 android:text="2"
                 android:textColor="#fff"
                 android:textSize="35sp" />
@@ -72,6 +76,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
+                android:paddingEnd="15dp"
+                android:paddingStart="15dp"
                 android:text="3"
                 android:textColor="#fff"
                 android:textSize="35sp" />
@@ -92,6 +98,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="45dp"
                 android:padding="10dp"
+                android:paddingEnd="15dp"
+                android:paddingStart="15dp"
                 android:text="4"
                 android:textColor="#fff"
                 android:textSize="35sp" />
@@ -102,6 +110,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="45dp"
                 android:padding="10dp"
+                android:paddingEnd="15dp"
+                android:paddingStart="15dp"
                 android:text="5"
                 android:textColor="#fff"
                 android:textSize="35sp" />
@@ -111,6 +121,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
+                android:paddingEnd="15dp"
+                android:paddingStart="15dp"
                 android:text="6"
                 android:textColor="#fff"
                 android:textSize="35sp" />
@@ -130,6 +142,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="45dp"
                 android:padding="10dp"
+                android:paddingEnd="15dp"
+                android:paddingStart="15dp"
                 android:text="7"
                 android:textColor="#fff"
                 android:textSize="35sp" />
@@ -140,6 +154,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="45dp"
                 android:padding="10dp"
+                android:paddingEnd="15dp"
+                android:paddingStart="15dp"
                 android:text="8"
                 android:textColor="#fff"
                 android:textSize="35sp" />
@@ -149,6 +165,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
+                android:paddingEnd="15dp"
+                android:paddingStart="15dp"
                 android:text="9"
                 android:textColor="#fff"
                 android:textSize="35sp" />
@@ -166,8 +184,10 @@
                 android:id="@+id/remove"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="30dp"
+                android:layout_marginEnd="20dp"
                 android:padding="5dp"
+                android:paddingEnd="15dp"
+                android:paddingStart="15dp"
                 android:text="Remove"
                 android:textColor="#fff"
                 android:textSize="15sp" />
@@ -178,6 +198,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="45dp"
                 android:padding="10dp"
+                android:paddingEnd="15dp"
+                android:paddingStart="15dp"
                 android:text="0"
                 android:textColor="#fff"
                 android:textSize="35sp" />
@@ -187,6 +209,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
+                android:paddingEnd="15dp"
+                android:paddingStart="15dp"
                 android:text="OK"
                 android:textColor="#fff"
                 android:textSize="20sp" />
