@@ -17,4 +17,6 @@
     <string name="setup_button">Setup</string>
     <string name="app_select">Customize Fake</string>
     <string name="save_button">Save</string>
+    <string name="set_real_password">Set real password</string>
+    <string name="set_fake_password">Set fake password</string>
 </resources>

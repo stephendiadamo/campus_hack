@@ -57,7 +57,7 @@
         android:layout_marginTop="10dp"
         android:background="?attr/selectableItemBackground"
         android:padding="10dp"
-        android:text="@string/app_select"
+        android:text="@string/set_fake_password"
         android:textSize="20sp" />
 
     <View
@@ -66,9 +66,8 @@
         android:layout_gravity="center"
         android:background="#c0c0c0" />
 
-
     <TextView
-        android:id="@+id/setup_button"
+        android:id="@+id/customize_real"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
@@ -76,7 +75,7 @@
         android:layout_marginTop="10dp"
         android:background="?attr/selectableItemBackground"
         android:padding="10dp"
-        android:text="@string/setup_button"
+        android:text="@string/set_real_password"
         android:textSize="20sp" />
 
     <View
@@ -84,7 +83,6 @@
         android:layout_height="1dp"
         android:layout_gravity="center"
         android:background="#c0c0c0" />
-
 
     <TextView
         android:id="@+id/settings_start_fake_lock"
@@ -97,7 +95,6 @@
         android:padding="10dp"
         android:text="@string/start_fake_lock"
         android:textSize="20sp" />
-
 
     <View
         android:layout_width="350dp"
@@ -116,6 +113,4 @@
         android:padding="10dp"
         android:text="@string/stop_fake_lock"
         android:textSize="20sp" />
-
-
 </LinearLayout>

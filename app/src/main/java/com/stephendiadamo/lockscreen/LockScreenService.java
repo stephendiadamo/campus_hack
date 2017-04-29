@@ -5,8 +5,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.graphics.PixelFormat;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,7 +32,6 @@ public class LockScreenService extends Service {
     private LinearLayout linearLayout;
     private WindowManager.LayoutParams layoutParams;
     private WindowManager windowManager;
-
     private final String tsaPassword = "1234";
     private final String normalPassword = "1111";
     private Integer quickEspaceCounter = 0;
@@ -68,7 +69,7 @@ public class LockScreenService extends Service {
 
         TextView one = (TextView) linearLayout.findViewById(R.id.number_one);
         TextView two = (TextView) linearLayout.findViewById(R.id.number_two);
-        TextView three = (TextView) linearLayout.findViewById(R.id.number_three);
+        final TextView three = (TextView) linearLayout.findViewById(R.id.number_three);
         TextView four = (TextView) linearLayout.findViewById(R.id.number_four);
         TextView five = (TextView) linearLayout.findViewById(R.id.number_five);
         TextView six = (TextView) linearLayout.findViewById(R.id.number_six);
@@ -110,6 +111,14 @@ public class LockScreenService extends Service {
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+                if (preferences.contains("tsa_password")) {
+                    preferences.getString("tsa_password", tsaPassword);
+                }
+                if (preferences.contains("real_password")) {
+                    preferences.getString("real_password", normalPassword);
+                }
 
                 String password = passwordField.getText().toString();
                 switch (password) {

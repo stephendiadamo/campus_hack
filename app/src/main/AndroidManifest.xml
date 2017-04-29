@@ -20,8 +20,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".FakeDataInput" />
-
+        <activity
+            android:name=".FakeDataInput"
+            android:windowSoftInputMode="adjustResize"/>
 
         <service android:name=".LockScreenService" />
 
