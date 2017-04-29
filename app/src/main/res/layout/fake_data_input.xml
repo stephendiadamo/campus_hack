@@ -4,10 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/bit_of_truth" />
 
     <TextView
         android:layout_width="match_parent"
@@ -18,6 +14,32 @@
 
     <EditText
         android:id="@+id/fake_data_first_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:labelFor="@+id/fake_data_last_name"
+        android:text="@string/last_name" />
+
+    <EditText
+        android:id="@+id/fake_data_last_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:labelFor="@+id/fake_data_company_name"
+        android:text="@string/companyName" />
+
+    <EditText
+        android:id="@+id/fake_data_company_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="text" />
@@ -44,6 +66,32 @@
 
     <EditText
         android:id="@+id/fake_data_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:labelFor="@+id/fake_data_birth_date"
+        android:text="@string/birthDate" />
+
+    <EditText
+        android:id="@+id/fake_data_birth_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:labelFor="@+id/fake_data_address"
+        android:text="@string/addressName" />
+
+    <EditText
+        android:id="@+id/fake_data_address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="text" />
