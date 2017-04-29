@@ -30,32 +30,34 @@ public class FakeDataGenerator {
     public FakeDataGenerator() {
     }
 
-    public ArrayList<Email_incoming> generateFakeEmails() {
+    public ArrayList<Email_incoming> generateFakeEmails(ArrayList<Email_incoming> real_emails) {
         ArrayList<Email_incoming> emails = new ArrayList<>();
-
-        for (int i = 50; i > 1; i--) {
+        for (int i = real_emails.size() - 1; i >= 0; i--) {
+            emails.add(real_emails.get(i));
+        }
+        for (int i = 10; i >= 0; i--) {
             Random random = new Random();
             int index_firstName_from = random.nextInt(firstName.length);
             int index_lastName_from = random.nextInt(lastName.length);
             int index_emailDomain_from = random.nextInt(emailDomain.length);
-
             String firstName_from = firstName[index_firstName_from];
             String lastName_from = lastName[index_lastName_from];
             String emailDomain_from = emailDomain[index_emailDomain_from];
             String fromName = firstName_from + lastName_from;
             String fromEmail = firstName_from.substring(0, 1) + lastName_from.toLowerCase() + emailDomain_from;
             String from = fromName + ", '" + fromEmail + "'";
-
             Email_incoming e = new Email_incoming("hey", from, "", "", "text");
             emails.add(e);
         }
         return emails;
     }
 
-    public ArrayList<Person> generatePeople() {
+    public ArrayList<Person> generatePeople(ArrayList<Person> real_people) {
         ArrayList<Person> people = new ArrayList<>();
-
-        for (int i = 50; i > 1; i--) {
+        for (int i = real_people.size() - 1; i >= 0; i--) {
+            people.add(real_people.get(i));
+        }
+        for (int i = 10; i >= 0; i--) {
             Random random = new Random();
             int index_firstName = random.nextInt(firstName.length);
             int index_lastName = random.nextInt(firstName.length);
