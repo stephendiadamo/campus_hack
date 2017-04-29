@@ -19,7 +19,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * Created by stephendiadamo on 2017-04-27.
@@ -80,6 +82,7 @@ public class LockScreenService extends Service {
         TextView ok = (TextView) linearLayout.findViewById(R.id.ok);
 
         ArrayList<TextView> numbers = new ArrayList<>();
+
         numbers.add(zero);
         numbers.add(one);
         numbers.add(two);
@@ -118,6 +121,7 @@ public class LockScreenService extends Service {
                         ((LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE))
                                 .inflate(R.layout.tsa_main_screen, linearLayout);
                         setIconActions();
+
                         linearLayout.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -150,8 +154,20 @@ public class LockScreenService extends Service {
         });
     }
 
+
     private void setIconActions() {
 
+        ImageView contacts = (ImageView) linearLayout.findViewById(R.id.contacts_icon);
+        contacts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                windowManager.removeView(linearLayout);
+                linearLayout = new LinearLayout(view.getContext());
+                windowManager.addView(linearLayout, layoutParams);
+                ((LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE))
+                        .inflate(R.layout.contacts, linearLayout);
+            }
+        });
     }
 
     @Nullable

@@ -7,9 +7,7 @@ package com.stephendiadamo.lockscreen;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteStatement;
 
 import com.stephendiadamo.lockscreen.data_objects.Person;
 import com.stephendiadamo.lockscreen.database.DataBaseHelper;
@@ -49,7 +47,6 @@ public class PersonOperations {
 
         db.insert(DataBaseHelper.TABLE_PEOPLE, null, values);
         db.close();
-        ;
     }
 
     public ArrayList<Person> getAllPeople() {
