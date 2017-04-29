@@ -16,8 +16,11 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.stephendiadamo.lockscreen.data_objects.Person;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -166,6 +169,13 @@ public class LockScreenService extends Service {
                 windowManager.addView(linearLayout, layoutParams);
                 ((LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE))
                         .inflate(R.layout.contacts, linearLayout);
+
+                PersonOperations peopleOps = new PersonOperations(linearLayout.getContext());
+                ArrayList<Person> people = peopleOps.getAllPeople();
+
+                ContactsAdapter contactsAdapter = new ContactsAdapter(linearLayout.getContext(), people);
+                ListView list = (ListView) linearLayout.findViewById(R.id.contacts_listview);
+                list.setAdapter(contactsAdapter);
             }
         });
     }
