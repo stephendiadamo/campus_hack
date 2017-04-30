@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -120,7 +121,7 @@ public class LockScreenService extends Service {
                 if (preferences.contains("real_password")) {
                     normalPassword = preferences.getString("real_password", null);
                 }
-                
+
                 String password = passwordField.getText().toString();
                 if (tsaPassword.equals(password)) {
                     windowManager.removeView(linearLayout);
@@ -175,6 +176,14 @@ public class LockScreenService extends Service {
             @Override
             public void onClick(View view) {
                 setContactsPage(view);
+            }
+        });
+
+        ImageView button1 = (ImageView) linearLayout.findViewById(R.id.camera_icon);
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE));
             }
         });
     }
