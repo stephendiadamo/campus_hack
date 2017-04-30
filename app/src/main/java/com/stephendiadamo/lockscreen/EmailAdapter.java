@@ -10,7 +10,6 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.stephendiadamo.lockscreen.data_objects.Email;
-import com.stephendiadamo.lockscreen.data_objects.Person;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -26,12 +25,11 @@ public class EmailAdapter extends ArrayAdapter<Email> {
     private final ArrayList<Email> emails;
 
     public EmailAdapter(@NonNull Context context, ArrayList<Email> emails) {
-        super(context, R.layout.contact_row, emails);
+        super(context, R.layout.email_row, emails);
         this.context = context;
-        this.layoutResourceID = R.layout.contact_row;
+        this.layoutResourceID = R.layout.email_row;
         this.emails = emails;
     }
-
 
     @NonNull
     @Override
@@ -48,16 +46,16 @@ public class EmailAdapter extends ArrayAdapter<Email> {
             emailHolder.firstLetter = (TextView) row.findViewById(R.id.email_first_letter);
             emailHolder.name = (TextView) row.findViewById(R.id.email_name);
             emailHolder.subject = (TextView) row.findViewById(R.id.email_subject);
-            emailHolder.letterHolder = row.findViewById(R.id.letter_holder);
+            emailHolder.letterHolder = row.findViewById(R.id.email_letter_holder);
 
             row.setTag(emailHolder);
         } else {
             emailHolder = (EmailHolder) row.getTag();
         }
         Email email = emails.get(position);
-        emailHolder.name.setText(email.from);
-        emailHolder.firstLetter.setText(email.from.substring(0, 1));
         emailHolder.subject.setText(email.subject);
+        emailHolder.firstLetter.setText(email.from.substring(0, 1));
+        emailHolder.name.setText(email.from);
 
         int[] androidColors = context.getResources().getIntArray(R.array.androidcolors);
         int randomAndroidColor = androidColors[new Random().nextInt(androidColors.length)];

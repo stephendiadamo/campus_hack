@@ -30,25 +30,21 @@ public class FakeDataGenerator {
     public FakeDataGenerator() {
     }
 
-    public ArrayList<Email> generateFakeEmails(ArrayList<Email> real_emails) {
+    public ArrayList<Email> generateFakeEmails() {
         ArrayList<Email> emails = new ArrayList<>();
-        for (int i = real_emails.size() - 1; i >= 0; i--) {
-            emails.add(real_emails.get(i));
-        }
+
+        //emails.addAll(real_emails);
+
         for (int i = 10; i >= 0; i--) {
             Random random = new Random();
             int index_firstName_from = random.nextInt(firstName.length);
             int index_lastName_from = random.nextInt(lastName.length);
-            int index_emailDomain_from = random.nextInt(emailDomain.length);
             int index_emailSubject = random.nextInt(emailSubjects.length);
             String firstName_from = firstName[index_firstName_from];
             String lastName_from = lastName[index_lastName_from];
             String emailSubject = emailSubjects[index_emailSubject];
-            String emailDomain_from = emailDomain[index_emailDomain_from];
-            String fromName = firstName_from + lastName_from;
-            String fromEmail = firstName_from.substring(0, 1) + lastName_from.toLowerCase() + emailDomain_from;
-            String from = fromName + ", '" + fromEmail + "'";
-            Email e = new Email(emailSubject, from, "", "", emailText);
+            String fromName = firstName_from + " " + lastName_from;
+            Email e = new Email(emailSubject, fromName, "", "", emailText);
             emails.add(e);
         }
         return emails;

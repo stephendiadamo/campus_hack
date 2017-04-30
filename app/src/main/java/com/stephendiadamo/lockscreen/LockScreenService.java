@@ -181,13 +181,24 @@ public class LockScreenService extends Service {
             }
         });
 
-        ImageView button1 = (ImageView) linearLayout.findViewById(R.id.camera_icon);
-        button1.setOnClickListener(new View.OnClickListener() {
+        ImageView cameraButton = (ImageView) linearLayout.findViewById(R.id.camera_icon);
+        cameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                windowManager.removeView(linearLayout);
                 startActivity(new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE));
             }
         });
+
+        windowManager.removeView(linearLayout);
+        ImageView inboxButton = (ImageView) linearLayout.findViewById(R.id.inbox_icon);
+        inboxButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setEmailPage(view);
+            }
+        });
+
     }
 
     public void setEmailPage(View view) {
@@ -207,12 +218,22 @@ public class LockScreenService extends Service {
 
         if (emails == null) {
             FakeDataGenerator fakeDataGenerator = new FakeDataGenerator();
-            emails = fakeDataGenerator.generateFakeEmails(new ArrayList<Email>());
+            emails = fakeDataGenerator.generateFakeEmails();
         }
 
         EmailAdapter emailAdapter = new EmailAdapter(linearLayout.getContext(), emails);
         ListView emailList = (ListView) linearLayout.findViewById(R.id.inbox_listview);
         emailList.setAdapter(emailAdapter);
+
+        emailList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                quickEspaceCounter++;
+                if (quickEspaceCounter == 10) {
+                    windowManager.removeView(linearLayout);
+                }
+            }
+        });
     }
 
     public void setContactsPage(View view) {
