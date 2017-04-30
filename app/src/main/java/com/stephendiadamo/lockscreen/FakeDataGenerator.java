@@ -75,7 +75,7 @@ public class FakeDataGenerator {
 
             int streetNumber = 10 + random.nextInt(90);
             int postalCode = 10000 + random.nextInt(90000);
-            String address_person = street[index_street] + " " + streetNumber + ", " + postalCode + " " + city[index_city] + ", " + country;
+            String address_person = street[index_street] + " " + streetNumber + ", " + postalCode + " " + city[index_city];
 
             int dayOfBirth = 1 + random.nextInt((30 - 1) + 1);
             int monthOfBirth = 1 + random.nextInt((12 - 1) + 1);

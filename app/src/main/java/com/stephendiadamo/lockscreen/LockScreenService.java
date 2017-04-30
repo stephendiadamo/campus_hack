@@ -10,6 +10,7 @@ import android.graphics.PixelFormat;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -32,9 +33,10 @@ public class LockScreenService extends Service {
     private LinearLayout linearLayout;
     private WindowManager.LayoutParams layoutParams;
     private WindowManager windowManager;
-    private final String tsaPassword = "1234";
-    private final String normalPassword = "1111";
+    private String tsaPassword = "1234";
+    private String normalPassword = "1111";
     private Integer quickEspaceCounter = 0;
+    private ArrayList<Person> morePeople;
 
     BroadcastReceiver screenReceiver = new BroadcastReceiver() {
         @Override
@@ -111,51 +113,48 @@ public class LockScreenService extends Service {
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+                SharedPreferences preferences = getApplicationContext().getSharedPreferences("lockout", Context.MODE_PRIVATE);
                 if (preferences.contains("tsa_password")) {
-                    preferences.getString("tsa_password", tsaPassword);
+                    tsaPassword = preferences.getString("tsa_password", null);
                 }
                 if (preferences.contains("real_password")) {
-                    preferences.getString("real_password", normalPassword);
+                    normalPassword = preferences.getString("real_password", null);
                 }
-
+                
                 String password = passwordField.getText().toString();
-                switch (password) {
-                    case tsaPassword:
-                        windowManager.removeView(linearLayout);
-                        linearLayout = new LinearLayout(context);
-                        layoutParams = new WindowManager.LayoutParams(
-                                WindowManager.LayoutParams.MATCH_PARENT,
-                                WindowManager.LayoutParams.MATCH_PARENT,
-                                WindowManager.LayoutParams.TYPE_SYSTEM_ERROR,
-                                WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD,
-                                PixelFormat.TRANSLUCENT);
+                if (tsaPassword.equals(password)) {
+                    windowManager.removeView(linearLayout);
+                    linearLayout = new LinearLayout(context);
+                    layoutParams = new WindowManager.LayoutParams(
+                            WindowManager.LayoutParams.MATCH_PARENT,
+                            WindowManager.LayoutParams.MATCH_PARENT,
+                            WindowManager.LayoutParams.TYPE_SYSTEM_ERROR,
+                            WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD,
+                            PixelFormat.TRANSLUCENT);
 
 
-                        windowManager.addView(linearLayout, layoutParams);
-                        ((LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE))
-                                .inflate(R.layout.tsa_main_screen, linearLayout);
+                    windowManager.addView(linearLayout, layoutParams);
+                    ((LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE))
+                            .inflate(R.layout.tsa_main_screen, linearLayout);
 
-                        setIconActions();
+                    setIconActions();
 
-                        linearLayout.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                quickEspaceCounter++;
-                                if (quickEspaceCounter == 10) {
-                                    windowManager.removeView(linearLayout);
-                                }
+                    linearLayout.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            quickEspaceCounter++;
+                            if (quickEspaceCounter == 10) {
+                                windowManager.removeView(linearLayout);
                             }
-                        });
+                        }
+                    });
 
-                        break;
-                    case normalPassword:
-                        windowManager.removeView(linearLayout);
-                        linearLayout = null;
-                        break;
-                    default:
-                        break;
+                } else if (password.equals(normalPassword)) {
+                    windowManager.removeView(linearLayout);
+                    linearLayout = null;
+
+                } else {
+                    passwordField.setText("");
                 }
             }
         });
@@ -198,8 +197,10 @@ public class LockScreenService extends Service {
         PersonOperations peopleOps = new PersonOperations(linearLayout.getContext());
         ArrayList<Person> people = peopleOps.getAllPeople();
 
-        FakeDataGenerator fakeDataGenerator = new FakeDataGenerator();
-        final ArrayList<Person> morePeople = fakeDataGenerator.generatePeople(people);
+        if (morePeople == null) {
+            FakeDataGenerator fakeDataGenerator = new FakeDataGenerator();
+            morePeople = fakeDataGenerator.generatePeople(people);
+        }
 
         ContactsAdapter contactsAdapter = new ContactsAdapter(linearLayout.getContext(), morePeople);
         ListView list = (ListView) linearLayout.findViewById(R.id.contacts_listview);
@@ -219,11 +220,13 @@ public class LockScreenService extends Service {
     }
 
     public void setContactPage(View view, Person person) {
+        windowManager.removeView(linearLayout);
         linearLayout = new LinearLayout(view.getContext());
         windowManager.addView(linearLayout, layoutParams);
         ((LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE))
                 .inflate(R.layout.contact_details, linearLayout);
 
+        LinearLayout contactLayout = (LinearLayout) linearLayout.findViewById(R.id.contact_layout);
         TextView name = (TextView) linearLayout.findViewById(R.id.contact_details_header);
         TextView phoneNumber = (TextView) linearLayout.findViewById(R.id.contact_phone_number);
         TextView email = (TextView) linearLayout.findViewById(R.id.contact_email_address);
@@ -234,6 +237,16 @@ public class LockScreenService extends Service {
         phoneNumber.setText(person.phone);
         email.setText(person.email);
         address.setText(person.address);
+
+        contactLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                quickEspaceCounter++;
+                if (quickEspaceCounter == 10) {
+                    windowManager.removeView(linearLayout);
+                }
+            }
+        });
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override

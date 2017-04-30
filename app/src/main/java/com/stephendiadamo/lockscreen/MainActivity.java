@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings);
 
-        sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        sharedPref = this.getSharedPreferences("lockout", Context.MODE_PRIVATE);
 
         TextView startFakeLock = (TextView) findViewById(R.id.settings_start_fake_lock);
         TextView stopFakeLock = (TextView) findViewById(R.id.settings_stop_fake_lock);
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         setFakePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-                passwordDialog("Fake Password", "fake_password");
+                passwordDialog("Fake Password", "tsa_password");
             }
         });
 
@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
                 String password = input.getText().toString();
                 final SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString(passwordType, password);
-                editor.apply();
+                editor.commit();
                 Toast.makeText(input.getContext(), "Saved", Toast.LENGTH_LONG).show();
             }
         });
