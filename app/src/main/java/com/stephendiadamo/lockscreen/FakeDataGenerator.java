@@ -25,7 +25,7 @@ public class FakeDataGenerator {
     String[] city = {"Berlin", "Hamburg", "Munich", "Cologne", "Frankfurt", "Essen", "Dortmund", "Stuttgart", "Dusseldorf", "Bremen", "Hanover"};
     String[] street = {"Altstadtring", "Brienner Straße", "Dachauer Straße", "Drückebergergasse", "Frankfurter Ring", "Leopoldstrasse", "Ludwigstrasse", "Maximilianstraße", "Moosacher Straße", "Pelkovenstraße", "Prinzregentenstraße", "Richard-Wagner-Straße", "Schellingstraße", "Schleißheimer Straße", "Ungererstraße"};
     String emailText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
-    String[] emailSubject = {"Question about the upcoming trip", "Our next steps", "Ideas for the presentation", "A very fast donkey", "Licking your phone never tasted so good", "Let's get started", "Your inquiry", "Look what you did, you little jerk…", "Don’t wear last year’s styles", "Vanilla or Chocolate?", "I love you", "I hate you", "Quick favor?", "Are you free this Thursday?", "Thanks for helping us", "Are you coming?", "Happy Birthday!!", "So, pick up at 8?"};
+    String[] emailSubjects = {"Question about the upcoming trip", "Our next steps", "Ideas for the presentation", "A very fast donkey", "Licking your phone never tasted so good", "Let's get started", "Your inquiry", "Look what you did, you little jerk…", "Don’t wear last year’s styles", "Vanilla or Chocolate?", "I love you", "I hate you", "Quick favor?", "Are you free this Thursday?", "Thanks for helping us", "Are you coming?", "Happy Birthday!!", "So, pick up at 8?"};
 
     public FakeDataGenerator() {
     }
@@ -40,15 +40,15 @@ public class FakeDataGenerator {
             int index_firstName_from = random.nextInt(firstName.length);
             int index_lastName_from = random.nextInt(lastName.length);
             int index_emailDomain_from = random.nextInt(emailDomain.length);
-            int index_emailSubject = random.nextInt(emailSubject.length);
+            int index_emailSubject = random.nextInt(emailSubjects.length);
             String firstName_from = firstName[index_firstName_from];
             String lastName_from = lastName[index_lastName_from];
-            String emailSubject = ;
+            String emailSubject = emailSubjects[index_emailSubject];
             String emailDomain_from = emailDomain[index_emailDomain_from];
             String fromName = firstName_from + lastName_from;
             String fromEmail = firstName_from.substring(0, 1) + lastName_from.toLowerCase() + emailDomain_from;
             String from = fromName + ", '" + fromEmail + "'";
-            Email_incoming e = new Email_incoming("hey", from, "", "", emailText);
+            Email_incoming e = new Email_incoming(emailSubject, from, "", "", emailText);
             emails.add(e);
         }
         return emails;
