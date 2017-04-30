@@ -1,6 +1,6 @@
 package com.stephendiadamo.lockscreen;
 
-import com.stephendiadamo.lockscreen.data_objects.Email_incoming;
+import com.stephendiadamo.lockscreen.data_objects.Email;
 import com.stephendiadamo.lockscreen.data_objects.Person;
 
 import java.util.ArrayList;
@@ -30,8 +30,8 @@ public class FakeDataGenerator {
     public FakeDataGenerator() {
     }
 
-    public ArrayList<Email_incoming> generateFakeEmails(ArrayList<Email_incoming> real_emails) {
-        ArrayList<Email_incoming> emails = new ArrayList<>();
+    public ArrayList<Email> generateFakeEmails(ArrayList<Email> real_emails) {
+        ArrayList<Email> emails = new ArrayList<>();
         for (int i = real_emails.size() - 1; i >= 0; i--) {
             emails.add(real_emails.get(i));
         }
@@ -48,7 +48,7 @@ public class FakeDataGenerator {
             String fromName = firstName_from + lastName_from;
             String fromEmail = firstName_from.substring(0, 1) + lastName_from.toLowerCase() + emailDomain_from;
             String from = fromName + ", '" + fromEmail + "'";
-            Email_incoming e = new Email_incoming(emailSubject, from, "", "", emailText);
+            Email e = new Email(emailSubject, from, "", "", emailText);
             emails.add(e);
         }
         return emails;

@@ -22,6 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.stephendiadamo.lockscreen.data_objects.Email;
 import com.stephendiadamo.lockscreen.data_objects.Person;
 
 import java.util.ArrayList;
@@ -38,6 +39,7 @@ public class LockScreenService extends Service {
     private String normalPassword = "1111";
     private Integer quickEspaceCounter = 0;
     private ArrayList<Person> morePeople;
+    private ArrayList<Email> emails;
 
     BroadcastReceiver screenReceiver = new BroadcastReceiver() {
         @Override
@@ -186,6 +188,31 @@ public class LockScreenService extends Service {
                 startActivity(new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE));
             }
         });
+    }
+
+    public void setEmailPage(View view) {
+        windowManager.removeView(linearLayout);
+        linearLayout = new LinearLayout(view.getContext());
+        layoutParams = new WindowManager.LayoutParams(
+                WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.TYPE_SYSTEM_ERROR,
+                WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD |
+                        WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN,
+                PixelFormat.TRANSLUCENT);
+
+        windowManager.addView(linearLayout, layoutParams);
+        ((LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE))
+                .inflate(R.layout.inbox, linearLayout);
+
+        if (emails == null) {
+            FakeDataGenerator fakeDataGenerator = new FakeDataGenerator();
+            emails = fakeDataGenerator.generateFakeEmails(new ArrayList<Email>());
+        }
+
+        EmailAdapter emailAdapter = new EmailAdapter(linearLayout.getContext(), emails);
+        ListView emailList = (ListView) linearLayout.findViewById(R.id.inbox_listview);
+        emailList.setAdapter(emailAdapter);
     }
 
     public void setContactsPage(View view) {
