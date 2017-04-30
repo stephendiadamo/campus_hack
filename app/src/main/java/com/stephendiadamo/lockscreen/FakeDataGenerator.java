@@ -23,9 +23,9 @@ public class FakeDataGenerator {
     String[] companySuffix = {"Associates", "Company", "Consulting", "Inc.", "Industries", "Limited", "LLC", "Ltd"};
     String[] phoneCode = {"0151", "0152", "0155", "0157", "0159", "0160", "0162", "0163", "0170", "0171", "0172", "0173", "0174", "0175", "0176", "0177", "0178", "0179"};
     String[] city = {"Berlin", "Hamburg", "Munich", "Cologne", "Frankfurt", "Essen", "Dortmund", "Stuttgart", "Dusseldorf", "Bremen", "Hanover"};
-    String[] street = {"Altstadtring", "Brienner Straﬂe", "Dachauer Straﬂe", "Dr¸ckebergergasse", "Frankfurter Ring", "Leopoldstrasse", "Ludwigstrasse", "Maximilianstraﬂe", "Moosacher Straﬂe", "Pelkovenstraﬂe", "Prinzregentenstraﬂe", "Richard-Wagner-Straﬂe", "Schellingstraﬂe", "Schleiﬂheimer Straﬂe", "Ungererstraﬂe"};
-    String country = "Germany";
-    String text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+    String[] street = {"Altstadtring", "Brienner Straße", "Dachauer Straße", "Drückebergergasse", "Frankfurter Ring", "Leopoldstrasse", "Ludwigstrasse", "Maximilianstraße", "Moosacher Straße", "Pelkovenstraße", "Prinzregentenstraße", "Richard-Wagner-Straße", "Schellingstraße", "Schleißheimer Straße", "Ungererstraße"};
+    String emailText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+    String[] emailSubjects = {"Question about the upcoming trip", "Our next steps", "Ideas for the presentation", "A very fast donkey", "Licking your phone never tasted so good", "Let's get started", "Your inquiry", "Look what you did, you little jerk…", "Don’t wear last year’s styles", "Vanilla or Chocolate?", "I love you", "I hate you", "Quick favor?", "Are you free this Thursday?", "Thanks for helping us", "Are you coming?", "Happy Birthday!!", "So, pick up at 8?"};
 
     public FakeDataGenerator() {
     }
@@ -40,13 +40,15 @@ public class FakeDataGenerator {
             int index_firstName_from = random.nextInt(firstName.length);
             int index_lastName_from = random.nextInt(lastName.length);
             int index_emailDomain_from = random.nextInt(emailDomain.length);
+            int index_emailSubject = random.nextInt(emailSubjects.length);
             String firstName_from = firstName[index_firstName_from];
             String lastName_from = lastName[index_lastName_from];
+            String emailSubject = emailSubjects[index_emailSubject];
             String emailDomain_from = emailDomain[index_emailDomain_from];
             String fromName = firstName_from + lastName_from;
             String fromEmail = firstName_from.substring(0, 1) + lastName_from.toLowerCase() + emailDomain_from;
             String from = fromName + ", '" + fromEmail + "'";
-            Email_incoming e = new Email_incoming("hey", from, "", "", "text");
+            Email_incoming e = new Email_incoming(emailSubject, from, "", "", emailText);
             emails.add(e);
         }
         return emails;
@@ -67,24 +69,19 @@ public class FakeDataGenerator {
             int index_street = random.nextInt(street.length);
             int index_city = random.nextInt(city.length);
             int index_phoneCode = random.nextInt(phoneCode.length);
-
             String firstName_person = firstName[index_firstName];
             String lastName_person = lastName[index_lastName];
             String company_person = companyName[index_companyName] + companySuffix[index_companySuffix];
             String email_person = firstName_person.substring(0, 1) + lastName_person.toLowerCase() + emailDomain[index_emailDomain];
-
             int streetNumber = 10 + random.nextInt(90);
             int postalCode = 10000 + random.nextInt(90000);
             String address_person = street[index_street] + " " + streetNumber + ", " + postalCode + " " + city[index_city];
-
             int dayOfBirth = 1 + random.nextInt((30 - 1) + 1);
             int monthOfBirth = 1 + random.nextInt((12 - 1) + 1);
             int yearOfBirth = 1970 + random.nextInt((1999 - 1970) + 1);
             String dateOfBirth_person = dayOfBirth + "." + monthOfBirth + "." + yearOfBirth;
-
             int phoneNumber = 1000000 + random.nextInt(9000000);
             String phone_person = phoneCode[index_phoneCode] + phoneNumber;
-
             Person person = new Person(firstName_person, lastName_person, company_person, email_person, phone_person, dateOfBirth_person, address_person);
             people.add(person);
         }
